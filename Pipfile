@@ -12,6 +12,7 @@ pre-commit = "*"
 django = "*"
 django-extensions = "*"
 django-model-utils = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"
