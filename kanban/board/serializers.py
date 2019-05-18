@@ -18,3 +18,12 @@ class TicketSerializer(serializers.ModelSerializer):
 
     def get_status_display(self, obj):
         return obj.get_status_display()
+
+    def validate(self, data):
+        start = data["start"]
+        end = data["end"]
+
+        if start and end and start > end:
+            raise serializers.ValidationError("'end' value must set after 'start' day")
+
+        return data
