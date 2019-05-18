@@ -27,3 +27,9 @@ class TicketSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("'end' value must set after 'start' day")
 
         return data
+
+    # def validate_start(self, value):
+    #     if value and value < datetime.date.today():
+    #         raise serializers.ValidationError("'start' value must set after today")
+    #
+    #     return value
