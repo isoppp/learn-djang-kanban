@@ -14,6 +14,7 @@ django-extensions = "*"
 django-model-utils = "*"
 djangorestframework = "*"
 faker = "*"
+factory-boy = "*"
 
 [requires]
 python_version = "3.7"
