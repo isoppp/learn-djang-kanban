@@ -12,18 +12,18 @@ from kanban.board.models import Ticket
 
 
 class TicketTests(TestCase):
-    def setup(self):
+    def setUp(self):
         self.client = APIClient()
+        self.fake = Faker()
 
     def test_post(self):
-        fake = Faker()
         url = reverse("ticket-list")
         payload = {
             "assignee": None,
-            "name": fake.word(),
-            "description": fake.text(),
+            "name": self.fake.word(),
+            "description": self.fake.text(),
             "status": random.choice([x.value for x in TicketStatus]),
-            "start": str(fake.date_object()),
+            "start": str(self.fake.date_object()),
             "end": None,
         }
 
@@ -32,3 +32,20 @@ class TicketTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Ticket.objects.count(), 1)
         self.assertEqual(Ticket.objects.get().name, payload["name"])
+
+    def test_validate_opposite_dates(self):
+        url = reverse("ticket-list")
+        payload = {
+            "assignee": None,
+            "name": self.fake.word(),
+            "description": self.fake.text(),
+            "status": random.choice([x.value for x in TicketStatus]),
+            "start": str(self.fake.future_date()),
+            "end": str(self.fake.past_date()),
+        }
+
+        response = self.client.post(url, json.dumps(payload), content_type="application/json")
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Ticket.objects.count(), 0)
+        self.assertEqual(response.data, {"non_field_errors": ["'end' value must set after 'start' day"]})
