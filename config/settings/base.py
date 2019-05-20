@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django_nose",  # temp
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -108,7 +107,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
-
-# django-nose
-TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
-NOSE_ARGS = ["--with-xunit", "--cover-xml", "--cover-html", "--cover-package=app"]  # テストを行うapp名を指定
