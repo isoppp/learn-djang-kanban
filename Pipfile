@@ -15,6 +15,7 @@ django-model-utils = "*"
 djangorestframework = "*"
 faker = "*"
 factory-boy = "*"
+django-nose = "*"
 
 [requires]
 python_version = "3.7"
