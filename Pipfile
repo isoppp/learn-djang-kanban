@@ -16,6 +16,7 @@ djangorestframework = "*"
 faker = "*"
 factory-boy = "*"
 pytest-django = "*"
+django-environ = "*"
 
 [requires]
 python_version = "3.7"
